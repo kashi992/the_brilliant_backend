@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 module.exports = async (req, res) => {
   // CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://the-brilliant.vercel.app');
+  res.setHeader('Access-Control-Allow-Origin', 'https://parkerfisher.com/');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
