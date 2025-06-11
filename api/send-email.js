@@ -2,15 +2,16 @@ import nodemailer from 'nodemailer';
 
 export default async function handler(req, res) {
   // CORS Headers
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', 'https://the-brilliant.vercel.app');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // Handle preflight request
+  // Handle OPTIONS method (CORS preflight)
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
+  // Allow only POST
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Only POST requests allowed' });
   }
