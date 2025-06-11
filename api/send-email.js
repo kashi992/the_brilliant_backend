@@ -1,17 +1,16 @@
-import nodemailer from 'nodemailer';
+const nodemailer = require('nodemailer');
 
-export default async function handler(req, res) {
-  // ✅ CORS HEADERS
+module.exports = async (req, res) => {
+  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', 'https://the-brilliant.vercel.app');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-  // ✅ CORS Preflight handler
+  // Handle preflight (OPTIONS)
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
 
-  // ✅ Main handler
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Only POST requests allowed' });
   }
@@ -35,9 +34,9 @@ export default async function handler(req, res) {
 
   try {
     await transporter.sendMail(mailOptions);
-    return res.status(200).json({ status: 'success', message: 'Email sent successfully' });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ status: 'error', message: 'Failed to send email' });
+    res.status(200).json({ status: 'success', message: 'Email sent successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: 'error', message: 'Failed to send email' });
   }
-}
+};
